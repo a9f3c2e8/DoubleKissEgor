@@ -1,11 +1,15 @@
-async def get_available_lessons():
+import aiosqlite
+
+DB_PATH = "database.db"
+
+async def init_db():
     async with aiosqlite.connect(DB_PATH) as db:
-        async with db.execute(
-            '''
-            SELECT *
-            FROM lessons
-            WHERE is_available = 1
-            ORDER BY date, time
-            '''
-        ) as cursor:
-            return await cursor.fetchall()
+        await db.execute("""
+            CREATE TABLE IF NOT EXISTS lessons (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                date TEXT,
+                time TEXT,
+                is_available INTEGER DEFAULT 1
+            )
+        """)
+        await db.commit()
