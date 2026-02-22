@@ -23,14 +23,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
-# Environment
-.env
-.venv
 
 # IDE
 .vscode/
